@@ -19,7 +19,7 @@ const colors = {
 }
 
 const sizes = {
-  buttonHeight: 45,
+  buttonHeight: 52,
   pageFontSize: 12,
   borderWidth: 0.8,
   borderRadius: 5
@@ -48,7 +48,7 @@ export default class App extends Component {
       <ImageBackground
         style={viewStyles.container}
         resizeMode={'cover'}
-        source={require('./src/images/instabackground-3.jpg')}
+        source={require('./src/images/instabackground-1.jpg')}
       >
 
         <StatusBar
@@ -72,6 +72,17 @@ export default class App extends Component {
             activeOpacity={0.75}
           >
             Log In (Via Instagram)
+          </LoginButton>
+
+          <LoginButton
+            buttonViewStyle={[viewStyles.instagramLoginButtonView, viewStyles.facebookLoginButtonView]}
+            buttonTextStyle={[textStyles.instragamButtonTextStyle, { fontSize: 15, fontWeight: 'bold'}]}
+            buttonTapped={this.buttonTapped}
+            touchableHighlightStyle={[viewStyles.instagramTouchableHighlightStyle, viewStyles.facebookButtonTouchableHighlightStyle]}
+            activeOpacity={0.75}
+            iconSource={require('./src/images/facebook-white-logo.png')}
+          >
+             acebook
           </LoginButton>
 
 
@@ -111,10 +122,18 @@ const viewStyles = {
     width: standardComponentWidth,
     height: sizes.buttonHeight
   },
+  facebookLoginButtonView: {
+    backgroundColor: colors.facebook,
+    borderColor: 'transparent'
+  },
   instagramTouchableHighlightStyle: {
     width: standardComponentWidth,
     height: sizes.buttonHeight,
     marginTop: 5
+  },
+  facebookButtonTouchableHighlightStyle:{
+    marginTop: 20,
+    marginBottom: 5
   }
 
 };

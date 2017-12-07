@@ -16,10 +16,10 @@ class LoginButton extends Component {
         <View style={[this.props.buttonViewStyle, viewStyles.buttonViewStyle]}>
           <Image
             resizeMode={'contain'}
-            style={[ {width: 30, height: 30}, this.props.iconStyle]}
+            style={[ {width: 25, height: 25, marginRight: 4}, this.props.iconStyle]}
             source={this.props.iconSource}
           />
-          <Text style={[this.props.buttonTextStyle, { backgroundColor: 'transparent', marginLeft: 20} ]}>{this.props.children}</Text>
+          <Text style={[this.props.buttonTextStyle, { backgroundColor: 'transparent'} ]}>{this.props.children}</Text>
         </View>
       );
     }
