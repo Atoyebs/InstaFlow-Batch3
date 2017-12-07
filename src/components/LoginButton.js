@@ -42,11 +42,7 @@ class LoginButton extends Component {
         style={[this.props.touchableHighlightStyle, viewStyles.touchableHighlightStyle]}
         onPress={this.props.buttonTapped}
       >
-
-        <View style={[this.props.buttonViewStyle, viewStyles.buttonViewStyle]}>
-          <Text style={[this.props.buttonTextStyle, { backgroundColor: 'transparent'} ]}>{this.props.children}</Text>
-        </View>
-
+        {this.getViewComponent()}
       </TouchableHighlight>
     );
   }
