@@ -1,26 +1,72 @@
-import React from 'react';
-import {Text, View } from 'react-native';
+import React, { Component } from 'react';
+import {Text, View, ImageBackground, Image, StatusBar, ScrollView } from 'react-native';
+import Dimensions from 'Dimensions';
 
-export default class App extends React.Component {
+
+//this code will give us the width and the height of our current screen
+const windowSize = Dimensions.get('window');
+
+
+export default class App extends Component {
 
   constructor(props){
     super(props);
+
+    this.state = {
+
+    }
+
   }
+
+  loginScreenComponent = () => {
+    return (
+      <ImageBackground
+        style={viewStyles.container}
+        resizeMode={'cover'}
+        source={require('./src/images/instabackground-3.jpg')}
+      >
+
+        <StatusBar
+          backgroundColor={'transparent'}
+          barStyle={'light-content'}
+        />
+
+        <ScrollView style={viewStyles.scrollViewStyle}>
+
+          <Image
+            style={viewStyles.instagramLogo}
+            resizeMode={'contain'}
+            source={require('./src/images/instagram-text-logo.png')}
+          />
+
+
+        </ScrollView>
+
+      </ImageBackground>
+    );
+  }
+
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      this.loginScreenComponent()
     );
   }
 }
 
-const styles = {
+const viewStyles = {
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center'
   },
+  instagramLogo: {
+    width: (0.45 * windowSize.width),
+    height: (0.15 * windowSize.height),
+    marginBottom: 25,
+    alignSelf: 'center'
+  },
+  scrollViewStyle: {
+    paddingTop: '35%'
+  }
+
 };
