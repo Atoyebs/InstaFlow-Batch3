@@ -5,6 +5,7 @@ import Dimensions from 'Dimensions';
 //Import Custom Components Here
 import LoginButton from './src/components/LoginButton';
 import TappableText from './src/components/TappableText';
+import InstaNavigationBar from './src/components/InstaNavigationBar';
 
 
 //this code will give us the width and the height of our current screen
@@ -90,8 +91,8 @@ export default class App extends Component {
 
   instagramFeedPageComponent = () => {
     return (
-      <View style={[ viewStyles.container, { justifyContent: 'center'} ]}>
-        <Text>Welcome to our instagram feed page</Text>
+      <View style={[ viewStyles.container, { paddingTop: 18} ]}>
+        <InstaNavigationBar />
       </View>
     );
   }
