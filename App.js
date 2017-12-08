@@ -64,6 +64,36 @@ export default class App extends Component {
 
     console.log("Current URL = " + currentURL);
 
+    //if the currentURL includes the accessTokenSubString
+    if( currentURL.includes(accessTokenSubString) ){
+
+      //if the access token hasn't been set/populated
+      if(this.state.accessToken.length < 1){
+
+        /*
+        this will store the index of the a in access_token= and
+        add on the number of characters in access_token= to find the
+        beginning of the access token
+        */
+        var startIndexOfAccessToken = currentURL.lastIndexOf(accessTokenSubString) + accessTokenSubString.length;
+        var foundAccessToken = currentURL.substr(startIndexOfAccessToken);
+
+        console.log("Found Access Token = " + foundAccessToken);
+
+        this.setState({ accessToken: foundAccessToken, displayAuthenticationWebView: false, displayLoginScreen: false  });
+
+      }
+
+    }
+
+  }
+
+  instagramFeedPageComponent = () => {
+    return (
+      <View style={[ viewStyles.container, { justifyContent: 'center'} ]}>
+        <Text>Welcome to our instagram feed page</Text>
+      </View>
+    );
   }
 
   authenticationWebViewComponent = () => {
@@ -80,6 +110,7 @@ export default class App extends Component {
     //when the button is pressed, change displayAuthenticationWebView to true
     this.setState({ displayAuthenticationWebView: true, displayLoginScreen: false });
   }
+
 
   loginWithTwitterComponent = () => {
     return (
@@ -192,6 +223,8 @@ export default class App extends Component {
 
   render() {
 
+    const shouldDisplayFeedPage = (this.state.accessToken.length > 1 && this.state.displayAuthenticationWebView == false && this.state.displayLoginScreen == false);
+
     if(this.state.displayLoginScreen && this.state.displayAuthenticationWebView == false){
       return (
         this.loginScreenComponent()
@@ -200,6 +233,11 @@ export default class App extends Component {
     else if (this.state.displayLoginScreen == false && this.state.displayAuthenticationWebView){
       return (
         this.authenticationWebViewComponent()
+      );
+    }
+    else if (shouldDisplayFeedPage){
+      return (
+        this.instagramFeedPageComponent()
       );
     }
 
