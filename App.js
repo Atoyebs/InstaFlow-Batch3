@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ImageBackground, Image, StatusBar, ScrollView, Linking } from 'react-native';
+import { Text, View, ImageBackground, Image, StatusBar, ScrollView, Linking, WebView } from 'react-native';
 import Dimensions from 'Dimensions';
 
 //Import Custom Components Here
@@ -43,15 +43,42 @@ export default class App extends Component {
 
     super(props);
 
+    //this is what the state of the app will be when the app first starts up
     this.state = {
-
+      authenticationURL: urls.instagramAuthLogin,
+      accessToken: '',
+      displayAuthenticationWebView: false,
+      displayLoginScreen: true
     }
 
   }
 
 
+  onURLStateChange = (webViewState) => {
+
+    //the string to search for in the url in order to get an access token
+    const accessTokenSubString = 'access_token=';
+
+    //this will store the currentURL being displayed in our custom browser
+    const currentURL = webViewState.url;
+
+    console.log("Current URL = " + currentURL);
+
+  }
+
+  authenticationWebViewComponent = () => {
+    return (
+      <WebView
+        source={{ uri: this.state.authenticationURL }}
+        startInLoadingState={true}
+        onNavigationStateChange={this.onURLStateChange}
+      />
+    );
+  }
+
   buttonTapped = () => {
-    console.log("Button successfully tapped");
+    //when the button is pressed, change displayAuthenticationWebView to true
+    this.setState({ displayAuthenticationWebView: true, displayLoginScreen: false });
   }
 
   loginWithTwitterComponent = () => {
@@ -164,9 +191,18 @@ export default class App extends Component {
   }
 
   render() {
-    return (
-      this.loginScreenComponent()
-    );
+
+    if(this.state.displayLoginScreen && this.state.displayAuthenticationWebView == false){
+      return (
+        this.loginScreenComponent()
+      );
+    }
+    else if (this.state.displayLoginScreen == false && this.state.displayAuthenticationWebView){
+      return (
+        this.authenticationWebViewComponent()
+      );
+    }
+
   }
 
 }
