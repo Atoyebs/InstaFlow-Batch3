@@ -79,7 +79,7 @@ export default class App extends Component {
       <ImageBackground
         style={viewStyles.container}
         resizeMode={'cover'}
-        source={require('./src/images/instabackground-1.jpg')}
+        source={require('./src/images/instabackground-3.jpg')}
       >
 
         <StatusBar
@@ -124,7 +124,17 @@ export default class App extends Component {
 
         </ScrollView>
 
+        { this.signupFooterComponent() }
+
       </ImageBackground>
+    );
+  }
+
+  signupFooterComponent = () => {
+    return (
+      <View style={viewStyles.signupFooterContainer}>
+        { this.forgotLoginDetailsComponent('Dont have an account?', 'Sign up.', urls.instagramSignUp) }
+      </View>
     );
   }
 
@@ -227,6 +237,18 @@ const viewStyles = {
     width: sizes.twitterIcon,
     height: sizes.twitterIcon,
     marginHorizontal: 4
+  },
+  signupFooterContainer: {
+    flex: 0.25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 5.5 },
+    width: '100%'
   }
 
 };
