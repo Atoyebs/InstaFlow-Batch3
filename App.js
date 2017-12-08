@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {Text, View, ImageBackground, Image, StatusBar, ScrollView } from 'react-native';
+import { Text, View, ImageBackground, Image, StatusBar, ScrollView, Linking } from 'react-native';
 import Dimensions from 'Dimensions';
 
 //Import Custom Components Here
 import LoginButton from './src/components/LoginButton';
+import TappableText from './src/components/TappableText';
 
 
 //this code will give us the width and the height of our current screen
@@ -25,6 +26,14 @@ const sizes = {
   borderRadius: 5
 }
 
+const urls = {
+  forgotInstagramLogin: 'https://www.instagram.com/accounts/password/reset',
+  twitterLogin: 'https://twitter.com/login?lang=en',
+  instagramSignUp: 'https://www.instagram.com/accounts/emailsignup/?hl=en',
+  instagramAuthLogin: 'https://api.instagram.com/oauth/authorize/?client_id=cda6dee7d8164a868150910407962f52&redirect_uri=http://www.kaitechconsulting.com&response_type=token&scope=basic+follower_list+comments+likes',
+  instagramLogout: 'https://instagram.com/accounts/logout',
+  instagramBase: 'https://www.instagram.com/',
+}
 
 
 export default class App extends Component {
@@ -85,6 +94,8 @@ export default class App extends Component {
              acebook
           </LoginButton>
 
+          { this.forgotLoginDetailsComponent() }
+
 
         </ScrollView>
 
@@ -92,12 +103,28 @@ export default class App extends Component {
     );
   }
 
+  forgotLoginDetailsComponent = () => {
+    return (
+      <View style={viewStyles.forgotLoginDetailsContainer}>
+        <Text style={textStyles.forgotLoginDetails}>Forgot your login details?</Text>
+        <TappableText
+          textStyle={[textStyles.forgotLoginDetails, textStyles.forgotLoginDetailsBold]}
+          textTapped={ () => Linking.openURL(urls.forgotInstagramLogin) }
+        >
+          Get help signing in.
+        </TappableText>
+      </View>
+    );
+  }
+
+
 
   render() {
     return (
       this.loginScreenComponent()
     );
   }
+
 }
 
 const viewStyles = {
@@ -134,6 +161,13 @@ const viewStyles = {
   facebookButtonTouchableHighlightStyle:{
     marginTop: 20,
     marginBottom: 5
+  },
+  forgotLoginDetailsContainer:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    marginTop: 10
   }
 
 };
@@ -143,6 +177,15 @@ const textStyles = {
   instragamButtonTextStyle: {
     color: colors.text,
     fontWeight: '500'
+  },
+  forgotLoginDetails:{
+    color: 'white',
+    backgroundColor: 'transparent',
+    fontSize: sizes.pageFontSize,
+    marginRight: 3
+  },
+  forgotLoginDetailsBold: {
+    fontWeight: 'bold'
   }
 
 };
