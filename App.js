@@ -23,7 +23,8 @@ const sizes = {
   buttonHeight: 52,
   pageFontSize: 12,
   borderWidth: 0.8,
-  borderRadius: 5
+  borderRadius: 5,
+  twitterIcon: 18
 }
 
 const urls = {
@@ -50,6 +51,27 @@ export default class App extends Component {
 
   buttonTapped = () => {
     console.log("Button successfully tapped");
+  }
+
+  loginWithTwitterComponent = () => {
+    return (
+      <View style={viewStyles.twitterLoginContainer}>
+
+        <Image
+          resizeMode={'contain'}
+          style={viewStyles.twitterIcon}
+          source={require('./src/images/icons/twitter_bird.png')}
+        />
+
+        <TappableText
+          textStyle={[textStyles.forgotLoginDetails, textStyles.forgotLoginDetailsBold, {fontSize: 12} ]}
+          textTapped={ () => Linking.openURL(urls.twitterLogin) }
+        >
+          Log In With Twitter
+        </TappableText>
+
+      </View>
+    );
   }
 
   loginScreenComponent = () => {
@@ -96,6 +118,9 @@ export default class App extends Component {
 
           { this.forgotLoginDetailsComponent() }
 
+          { this.orSeparatorComponent() }
+
+          { this.loginWithTwitterComponent() }
 
         </ScrollView>
 
@@ -117,7 +142,15 @@ export default class App extends Component {
     );
   }
 
-
+  orSeparatorComponent = () => {
+    return(
+      <View style={viewStyles.orSeparatorContainer}>
+        <View style={viewStyles.orSeparatorLine}/>
+        <Text style={textStyles.orSeparatorTextStyle}>OR</Text>
+        <View style={viewStyles.orSeparatorLine}/>
+      </View>
+    );
+  }
 
   render() {
     return (
@@ -168,6 +201,32 @@ const viewStyles = {
     justifyContent: 'center',
     paddingHorizontal: 10,
     marginTop: 10
+  },
+  orSeparatorContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: '7%'
+  },
+  orSeparatorLine:{
+    height: 1,
+    flex: 5,
+    backgroundColor: colors.socialMediaButtonBorderColor,
+    borderColor: colors.socialMediaButtonBorderColor,
+    borderWidth: 0.5,
+    marginHorizontal: 5
+  },
+  twitterLoginContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  twitterIcon: {
+    width: sizes.twitterIcon,
+    height: sizes.twitterIcon,
+    marginHorizontal: 4
   }
 
 };
@@ -186,6 +245,12 @@ const textStyles = {
   },
   forgotLoginDetailsBold: {
     fontWeight: 'bold'
+  },
+  orSeparatorTextStyle: {
+    color: 'white',
+    backgroundColor: 'transparent',
+    fontWeight: 'bold',
+    fontSize: 13
   }
 
 };
