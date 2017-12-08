@@ -116,7 +116,7 @@ export default class App extends Component {
              acebook
           </LoginButton>
 
-          { this.forgotLoginDetailsComponent() }
+          { this.forgotLoginDetailsComponent('Forgot your login details?', 'Get help signing in.', urls.forgotInstagramLogin) }
 
           { this.orSeparatorComponent() }
 
@@ -128,15 +128,15 @@ export default class App extends Component {
     );
   }
 
-  forgotLoginDetailsComponent = () => {
+  forgotLoginDetailsComponent = (normalText, boldText, url) => {
     return (
       <View style={viewStyles.forgotLoginDetailsContainer}>
-        <Text style={textStyles.forgotLoginDetails}>Forgot your login details?</Text>
+        <Text style={textStyles.forgotLoginDetails}>{normalText}</Text>
         <TappableText
           textStyle={[textStyles.forgotLoginDetails, textStyles.forgotLoginDetailsBold]}
-          textTapped={ () => Linking.openURL(urls.forgotInstagramLogin) }
+          textTapped={ () => Linking.openURL(url) }
         >
-          Get help signing in.
+          {boldText}
         </TappableText>
       </View>
     );
@@ -247,7 +247,7 @@ const textStyles = {
     fontWeight: 'bold'
   },
   orSeparatorTextStyle: {
-    color: 'white',
+    color: colors.socialMediaButtonBorderColor,
     backgroundColor: 'transparent',
     fontWeight: 'bold',
     fontSize: 13
