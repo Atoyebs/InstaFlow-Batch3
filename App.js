@@ -6,6 +6,7 @@ import Dimensions from 'Dimensions';
 import LoginButton from './src/components/LoginButton';
 import TappableText from './src/components/TappableText';
 import InstaNavigationBar from './src/components/InstaNavigationBar';
+import NetworkManager from './src/model/NetworkManager';
 
 
 //this code will give us the width and the height of our current screen
@@ -81,7 +82,16 @@ export default class App extends Component {
 
         console.log("Found Access Token = " + foundAccessToken);
 
-        this.setState({ accessToken: foundAccessToken, displayAuthenticationWebView: false, displayLoginScreen: false  });
+        this.apiManager = new NetworkManager(foundAccessToken);
+
+        this.apiManager.getSessionAndFeedData( (userData) => {
+          this.userData = userData;
+        }, (feedData) => {
+          this.feedData = feedData;
+          console.log(this.feedData);
+          this.setState({ accessToken: foundAccessToken, displayAuthenticationWebView: false, displayLoginScreen: false  });
+        });
+
 
       }
 
